@@ -4,3 +4,4 @@ dataset/
 artifacts/
 myenv/
 *.zip
+__pycache__/
