@@ -10,6 +10,7 @@ layers), so no torchvision weights are loaded.
 from __future__ import annotations
 
 from collections import OrderedDict
+from pathlib import Path
 from typing import Iterable, Tuple
 
 import torch
@@ -80,16 +81,46 @@ class ClassicAlexNetBackbone(nn.Module):
         return OrderedDict([("feat", x)])
 
 
+def _load_classifier_backbone_weights(backbone: ClassicAlexNetBackbone, weights_path: Path) -> None:
+    """Load convolutional weights from a classifier checkpoint into the backbone."""
+
+    state_dict = torch.load(weights_path, map_location="cpu")
+    if not isinstance(state_dict, dict):
+        raise ValueError("Classifier checkpoint must be a plain state_dict dictionary.")
+
+    prefix = "features."
+    backbone_state = {}
+    for key, tensor in state_dict.items():
+        if key.startswith(prefix):
+            new_key = key[len(prefix) :]
+            backbone_state[new_key] = tensor
+
+    missing, unexpected = backbone.load_state_dict(backbone_state, strict=False)
+    if missing:
+        raise RuntimeError(f"Missing backbone parameters when loading classifier weights: {missing}")
+    if unexpected:
+        raise RuntimeError(f"Unexpected parameters in classifier weights: {unexpected}")
+
+
 def build_alexnet_detector(
     num_classes: int,
     *,
     trainable_layers: int = 2,
     anchor_sizes: Iterable[int] = (32, 64, 128, 256, 512),
     aspect_ratios: Tuple[float, ...] = (0.5, 1.0, 1.5, 2.0),
+    classifier_weights: str | Path | None = None,
+    freeze_backbone: bool = False,
 ) -> FasterRCNN:
     """Create a Faster R-CNN detector using the scratch-built AlexNet backbone."""
 
     backbone = ClassicAlexNetBackbone(trainable_layers=trainable_layers)
+
+    if classifier_weights is not None:
+        _load_classifier_backbone_weights(backbone, Path(classifier_weights))
+
+    if freeze_backbone:
+        for param in backbone.parameters():
+            param.requires_grad = False
 
     anchor_generator = AnchorGenerator(
         sizes=(tuple(anchor_sizes),),
