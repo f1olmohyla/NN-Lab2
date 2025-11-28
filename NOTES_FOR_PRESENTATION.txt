@@ -16,3 +16,5 @@ trainable layers: 5, 15 epochs
 Best trial: 2
 Best params: {'lr': 0.00033508154330916126, 'weight_decay': 4.347513757831929e-06, 'head_lr_multiplier': 2.093237287606322, 'backbone_lr_multiplier': 0.2779733055252915}
 Best mAP@0.5: 0.18215720032427063
+
+trainable layers: 3, 20 epochs
