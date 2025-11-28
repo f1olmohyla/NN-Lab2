@@ -107,7 +107,7 @@ def build_alexnet_detector(
     *,
     trainable_layers: int = 2,
     anchor_sizes: Iterable[int] = (32, 64, 128, 256, 512),
-    aspect_ratios: Tuple[float, ...] = (0.5, 1.0, 1.5, 2.0),
+    aspect_ratios: Tuple[float, ...] = (0.5, 1.0, 1.5),
     classifier_weights: str | Path | None = None,
     freeze_backbone: bool = False,
 ) -> FasterRCNN:
