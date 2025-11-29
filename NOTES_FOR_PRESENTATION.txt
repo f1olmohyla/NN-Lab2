@@ -1,0 +1,20 @@
+1. AdamW optimizer shows significantly better results than SGD producing better map50 scores.
+2. I had to pre-train separate alexnet backbone on synthetic dataset to classify background from the aircraft. It in fact made a difference, with at least x10 better scores of map50.
+
+trainable layers: 2
+[I 2025-11-28 16:47:43,662] Trial 4 finished with value: 0.10159151163711644 and parameters: {'lr': 0.0003472922576901217, 'weight_decay': 2.181677109106512e-05, 'head_lr_multiplier': 1.468793201230219, 'backbone_lr_multiplier': 0.24684724039757322}. Best is trial 4 with value: 0.10159151163711644.
+[I 2025-11-28 17:02:46,774] Trial 1 finished with value: 0.07976763700493038 and parameters: {'lr': 0.0007656672662730134, 'weight_decay': 0.0009360833295981412, 'head_lr_multiplier': 3.3955264585860765, 'backbone_lr_multiplier': 0.13073023780259008}. Best is trial 1 with value: 0.07976763700493038.
+[I 2025-11-28 17:30:08,944] Trial 3 finished with value: 0.14076498032382723 and parameters: {'lr': 0.000708075901329621, 'weight_decay': 0.00011486989278545018, 'head_lr_multiplier': 2.522491330880062, 'backbone_lr_multiplier': 0.389524571308879}. Best is trial 3 with value: 0.14076498032382723.
+
+trainable layers: 4
+[I 2025-11-28 18:42:01,205] Trial 2 finished with value: 0.23361965311034022 and parameters: {'lr': 0.0004453636169222236, 'weight_decay': 1.6495284874443185e-05, 'head_lr_multiplier': 3.7200049699845805, 'backbone_lr_multiplier': 0.3710977190790142}. Best is trial 2 with value: 0.23361965311034022.
+[I 2025-11-28 19:02:32,396] Trial 1 finished with value: 0.218245384314868 and parameters: {'lr': 0.0004586474821086941, 'weight_decay': 0.00012492268250621132, 'head_lr_multiplier': 1.6861587958259947, 'backbone_lr_multiplier': 0.19847540807045044}. Best is trial 1 with value: 0.218245384314868.
+[I 2025-11-28 19:22:27,583] Trial 2 finished with value: 0.12876687907819642 and parameters: {'lr': 0.0001122799329167534, 'weight_decay': 2.1939702240488887e-06, 'head_lr_multiplier': 3.628189895868924, 'backbone_lr_multiplier': 0.18850159508624137}. Best is trial 1 with value: 0.26545424292861586.
+
+
+trainable layers: 5, 15 epochs
+Best trial: 2
+Best params: {'lr': 0.00033508154330916126, 'weight_decay': 4.347513757831929e-06, 'head_lr_multiplier': 2.093237287606322, 'backbone_lr_multiplier': 0.2779733055252915}
+Best mAP@0.5: 0.18215720032427063
+
+trainable layers: 3, 20 epochs
