@@ -3,7 +3,7 @@ numpy>=1.21.0
 pandas>=1.3.0
 Pillow>=8.0.0
 opencv-python>=4.5.0
-opencv-contrib-python>=4.5.0
+opencv-contrib-python>=4.5.0  # Required for Selective Search in R-CNN
 torch>=2.0.0
 torchvision>=0.15.0
 tqdm>=4.65.0
@@ -21,3 +21,6 @@ ipywidgets
 jupyterlab_widgets
 
 optuna
+
+# R-CNN specific dependencies
+pycocotools>=2.0.6  # Object detection evaluation metrics
